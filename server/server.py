@@ -3,6 +3,7 @@ from flask_cors import CORS
 import pandas as pd
 import numpy as np
 from keras.models import load_model
+import os
 import yfinance as yf
 from datetime import datetime, timedelta
 from sklearn.preprocessing import MinMaxScaler
@@ -16,7 +17,10 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
 # Load the model once when the server starts
-model = load_model("../Latest_stock_price_model.keras")
+# Load the model once when the server starts
+# Use MODEL_PATH env var if set, otherwise default to local file
+model_path = os.environ.get("MODEL_PATH", "Latest_stock_price_model.keras")
+model = load_model(model_path)
 
 @app.route("/api/home", methods=['GET'])
 def home():
@@ -284,4 +288,6 @@ def generate_chart():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    # Get port from environment variable or default to 5000
+    port = int(os.environ.get('PORT', 5000))
+    app.run(debug=True, host='0.0.0.0', port=port)

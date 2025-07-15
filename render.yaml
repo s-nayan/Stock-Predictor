@@ -1,15 +1,12 @@
 services:
   - type: web
     name: stock-prediction
-    runtime: python
-    buildCommand: pip install -r server/requirements.txt
-    startCommand: cd server && python app.py
+    runtime: docker
+    buildContext: .
+    dockerfilePath: Dockerfile
     envVars:
-      - key: PYTHON_VERSION
-        value: 3.10.0
-      - key: CARGO_HOME
-        value: /tmp/cargo
-      - key: RUSTUP_HOME
-        value: /tmp/rustup
-      - key: CARGO_TARGET_DIR
-        value: /tmp/cargo-target
+      - key: PORT
+        value: "5000"
+      - key: MODEL_PATH
+        value: "Latest_stock_price_model.keras"
+    healthCheckPath: "/api/home"
