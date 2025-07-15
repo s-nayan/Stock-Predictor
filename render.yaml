@@ -9,7 +9,7 @@ services:
         value: 3.10.0
       - key: CARGO_HOME
         value: /tmp/cargo
-      - key: CARGO_TARGET_DIR
-        value: /tmp/cargo-target
       - key: RUSTUP_HOME
         value: /tmp/rustup
+      - key: CARGO_TARGET_DIR
+        value: /tmp/cargo-target
