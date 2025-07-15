@@ -175,3 +175,5 @@ wheel==0.45.1
 wrapt==1.17.2
 yfinance==0.2.64
 zipp==3.21.0
+cryptography==38.0.4; platform_machine != "aarch64"
+pydantic==1.10.8
